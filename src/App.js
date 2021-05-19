@@ -85,7 +85,7 @@ function App() {
   //add  data in to shoppingcart
   async function addToCart(id, noOfUnitsInCartoon, itemName) {
     var amount;
-    if (singleAmount !== 0 && cartonAmount !== 0) {
+    if ((singleAmount !== 0 || cartonAmount !== 0)) {
       amount = singleAmount + cartonAmount * noOfUnitsInCartoon; //10
       updateArray(id, amount);
     } else if (singleAmount !== 0 && cartonAmount === 0) {
@@ -97,38 +97,37 @@ function App() {
       setSingleValue([...singleValue, { itemId: id, amount: amount }]);
       updateArray(id, amount);
     }
-   
-if(singleAmount !==0 && cartonAmount!==0){
-    const options = {
-      method: "GET",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    };
 
-    fetch(
-      "http://localhost:8080/items/calculate_price/single/" +
-        itemName +
-        "/" +
-        id +
-        "/" +
-        amount,
+    if (amount) {
+      const options = {
+        method: "GET",
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json",
+        },
+      };
 
-      options
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong ...");
-        }
-      })
-      .then((data) => availableItems(data, id, amount))
-      .catch((error) => this.setState({ error }));
-    }
-    else{
-      alert("Please input a valid items")
+      fetch(
+        "http://localhost:8080/items/calculate_price/single/" +
+          itemName +
+          "/" +
+          id +
+          "/" +
+          amount,
+
+        options
+      )
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong ...");
+          }
+        })
+        .then((data) => availableItems(data, id, amount))
+        .catch((error) => this.setState({ error }));
+    } else {
+      alert("Please input a valid items");
     }
   }
 
