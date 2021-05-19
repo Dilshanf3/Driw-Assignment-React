@@ -97,7 +97,8 @@ function App() {
       setSingleValue([...singleValue, { itemId: id, amount: amount }]);
       updateArray(id, amount);
     }
-
+   
+if(singleAmount !==0 && cartonAmount!==0){
     const options = {
       method: "GET",
       headers: {
@@ -125,6 +126,10 @@ function App() {
       })
       .then((data) => availableItems(data, id, amount))
       .catch((error) => this.setState({ error }));
+    }
+    else{
+      alert("Please input a valid items")
+    }
   }
 
   //function to get total value
@@ -274,6 +279,7 @@ function App() {
                   <div style={{ marginLeft: 5 }}>
                     <input
                       onFocus={() => setSelectedItem(item.id)}
+                      min="1"
                       type="number"
                       placeholder="Carton"
                       style={{ width: 200, height: 20 }}
@@ -287,6 +293,7 @@ function App() {
                   </div>
                   <div style={{ marginLeft: 5 }}>
                     <input
+                      min="1"
                       onFocus={() => setSelectedItem(item.id)}
                       type="number"
                       placeholder="Single"
