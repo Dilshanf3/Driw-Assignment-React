@@ -1,6 +1,6 @@
 # This app is to show admin panel List of items and the shoping cart
-# For this install react to your machine and use npm start to up to see the app in browser
-# Make sure that server is up
+ For this install react to your machine and use npm start to up to see the app in browser
+ Make sure that server is up
 
 
 # Getting Started with Create React App
